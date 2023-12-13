@@ -4,20 +4,29 @@ using P04WeatherForecastWPF.Client.Services;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace P04WeatherForecastWPF.Client.ViewModels
 {
-    internal class MainViewModel
+    internal class MainViewModel : INotifyPropertyChanged
     {
         private string _cityName = "warszawa";
         private City[] _cities;
 
 
         private readonly AccuWeatherService _accuWeatherService;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public string CityName 
         { 
