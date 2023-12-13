@@ -12,11 +12,11 @@
             <Label Content="City:"></Label>
             <TextBox Text="{Binding CityName}" x:Name="txtCity"></TextBox>
             <Button x:Name="btnSearch" Command="{Binding LoadCitiesCommand}" Content="Search"></Button>
-            <ListBox DisplayMemberPath="FullName" x:Name="lbData" ItemsSource="{Binding Cities}"  ></ListBox>
+            <ListBox DisplayMemberPath="FullName" x:Name="lbData" ItemsSource="{Binding Cities}" SelectedItem="{Binding SelectedCity}" ></ListBox>
         </StackPanel>
         <StackPanel>
             <Label HorizontalAlignment="Center" Content="Temperature for City:"></Label>
-            <Label x:Name="lblCityName" HorizontalAlignment="Center" Content="..."></Label>
+            <Label x:Name="lblCityName" HorizontalAlignment="Center" Content="{Binding SelectedCity.LocalizedName}"></Label>
             <Label HorizontalAlignment="Center" Content="is:"></Label>
             <Label x:Name="lblTemperatureValue" HorizontalAlignment="Center" Content="..."></Label>
 

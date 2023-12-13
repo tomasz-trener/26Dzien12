@@ -17,43 +17,75 @@ namespace P04WeatherForecastWPF.Client.ViewModels
     {
         private string _cityName = "warszawa";
         private City[] _cities;
+        private City _selectedCity;
+        private Weather _weather;
 
         private readonly AccuWeatherService _accuWeatherService;
 
-        public string CityName 
-        { 
-            get 
-            {  
-                return _cityName; 
+        public string CityName
+        {
+            get
+            {
+                return _cityName;
             }
-        set 
-            {  
+            set
+            {
                 _cityName = value;
-            } 
+            }
         }
 
         public City[] Cities
         {
             get { return _cities; }
-            set { 
+            set {
                 _cities = value;
                 OnPropertyChanged();
             }
         }
 
+        public City SelectedCity
+        { 
+            get => _selectedCity; 
+            set
+            {
+                _selectedCity = value;
+                OnPropertyChanged();
+                loadWeather();
+            } 
+        }
+
+        public Weather Weather
+        {
+            get => _weather;
+            set
+            {
+                _weather = value;
+                OnPropertyChanged();
+            }
+        }
+ 
+        public string CurrentTemperature => Weather?.Temperature.Metric.Value.ToString();
 
         public ICommand LoadCitiesCommand { get; }
 
         public MainViewModel()
         {
-            LoadCitiesCommand = new RelayCommand(x => LoadCities());
+            LoadCitiesCommand = new RelayCommand(x => loadCities());
             _accuWeatherService = new AccuWeatherService();
         }
 
-        public async void LoadCities()
+        private async void loadCities()
         {
             Cities = await _accuWeatherService.GetLocations(_cityName);
             //OnPropertyChanged("Cities");
+        }
+
+        private async void loadWeather()
+        {
+            if (SelectedCity != null)
+            {
+                Weather = await _accuWeatherService.GetCurentConditions(SelectedCity.Key);
+            }
         }
     }
 }
