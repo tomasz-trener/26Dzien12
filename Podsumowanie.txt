@@ -8,3 +8,9 @@
 3) Dodalismy obsluge zdarzen uzywajac gotowej implementacji RelayCommand i powiazalismy zdarzenie oblusgi przycisku z Metod¹ LoadCities 
 4) DataBinding wiaze nam widok z viewmodelem w stanie poczatkowym ale gdy zmieni siê coœ w ViewModelu to trzeba powiadomiæ widok 
    ze dane property siêzmieniu i tutaj uzlismy gotowej implementacji intrefesu IPropertyChange 
+
+5) wdrazamy DI
+  - ustawienie w app.xaml metody startowej
+  - konfiguracja serwisó w app.xaml.cs
+
+ 6) rozdzielenie MainViewModel od AccuWeatherService robimy to poprzez zastoswanie intrefejsów 

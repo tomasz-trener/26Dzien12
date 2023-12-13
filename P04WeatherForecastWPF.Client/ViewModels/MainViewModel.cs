@@ -20,7 +20,7 @@ namespace P04WeatherForecastWPF.Client.ViewModels
         private City _selectedCity;
         private Weather _weather;
 
-        private readonly AccuWeatherService _accuWeatherService;
+        private readonly IAccuWeatherService _accuWeatherService;
 
         public string CityName
         {
@@ -70,10 +70,10 @@ namespace P04WeatherForecastWPF.Client.ViewModels
 
         public ICommand LoadCitiesCommand { get; }
 
-        public MainViewModel()
+        public MainViewModel(IAccuWeatherService accuWeatherService)
         {
             LoadCitiesCommand = new RelayCommand(x => loadCities());
-            _accuWeatherService = new AccuWeatherService();
+            _accuWeatherService = accuWeatherService;
         }
 
         private async void loadCities()
