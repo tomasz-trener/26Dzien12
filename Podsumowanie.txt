@@ -14,3 +14,5 @@
   - konfiguracja serwisó w app.xaml.cs
 
  6) rozdzielenie MainViewModel od AccuWeatherService robimy to poprzez zastoswanie intrefejsów 
+
+ 7) konfigurujemy w app.xaml.cs serwisy 
