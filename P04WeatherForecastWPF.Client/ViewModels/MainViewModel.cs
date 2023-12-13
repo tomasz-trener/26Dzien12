@@ -61,6 +61,8 @@ namespace P04WeatherForecastWPF.Client.ViewModels
             {
                 _weather = value;
                 OnPropertyChanged();
+                //OnPropertyChanged("CurrentTemperature");
+                OnPropertyChanged(nameof(CurrentTemperature));
             }
         }
  

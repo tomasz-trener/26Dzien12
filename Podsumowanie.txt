@@ -1,0 +1,10 @@
+
+0) zakladamy, ze mamy sam widok 
+1) Stworzylismy MainViewModel 
+2) tworzymy prywatne pola z publicznymi wlasciwosciami, ktore wiazemy z widokiem 
+ - powiawzanie calego viewmodel u widokiem robimy w MainWindow.cs poprzez DataContex 
+ - powiazanie poszczego³nych w³aœciwoœci robimy w MainWindow.xaml poprzez Binding 
+
+3) Dodalismy obsluge zdarzen uzywajac gotowej implementacji RelayCommand i powiazalismy zdarzenie oblusgi przycisku z Metod¹ LoadCities 
+4) DataBinding wiaze nam widok z viewmodelem w stanie poczatkowym ale gdy zmieni siê coœ w ViewModelu to trzeba powiadomiæ widok 
+   ze dane property siêzmieniu i tutaj uzlismy gotowej implementacji intrefesu IPropertyChange 
