@@ -4,10 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:P04WeatherForecastWPF.Client"
+        xmlns:converters="clr-namespace:P04WeatherForecastWPF.Client.Converters"
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="300">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="precToDispConv"></BooleanToVisibilityConverter>
+        <converters:TemperatureToDisplayConveter x:Key="temperatureToDispConv"></converters:TemperatureToDisplayConveter>
     </Window.Resources>       
     <DockPanel>
         <StackPanel Width="150" DockPanel.Dock="Left">
@@ -22,7 +24,7 @@
             <Label HorizontalAlignment="Center" Content="is:"></Label>
             
             <!--<Label x:Name="lblTemperatureValue" HorizontalAlignment="Center" Content="{Binding CurrentTemperature}"></Label>-->
-            <Label x:Name="lblTemperatureValue" HorizontalAlignment="Center" Content="{Binding WeatherVM.CurrentTemperature}"></Label>
+            <Label x:Name="lblTemperatureValue" HorizontalAlignment="Center" Content="{Binding WeatherVM.CurrentTemperature, Converter={StaticResource temperatureToDispConv}}"></Label>
             <Image Source="/Images/raining.jpg" Visibility="{Binding WeatherVM.HasPrecipitation, Converter={StaticResource precToDispConv}}" Height="70" ></Image>
         </StackPanel>
     </DockPanel>
