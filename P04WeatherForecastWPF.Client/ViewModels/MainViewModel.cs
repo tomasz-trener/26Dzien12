@@ -43,7 +43,10 @@ namespace P04WeatherForecastWPF.Client.ViewModels
         public City[] Cities
         {
             get { return _cities; }
-            set { _cities = value; }
+            set { 
+                _cities = value;
+                OnPropertyChanged();
+            }
         }
 
 
@@ -57,7 +60,8 @@ namespace P04WeatherForecastWPF.Client.ViewModels
 
         public async void LoadCities()
         {
-            Cities = await _accuWeatherService.GetLocations(_cityName); 
+            Cities = await _accuWeatherService.GetLocations(_cityName);
+            //OnPropertyChanged("Cities");
         }
     }
 }
