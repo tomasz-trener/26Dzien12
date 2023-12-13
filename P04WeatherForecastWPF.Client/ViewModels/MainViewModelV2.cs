@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using P04WeatherForecastWPF.Client.Commands;
 using P04WeatherForecastWPF.Client.Models;
 using P04WeatherForecastWPF.Client.Services;
@@ -20,6 +21,7 @@ namespace P04WeatherForecastWPF.Client.ViewModels
     // 1) dodaje obsluge kolekcji obserowowalnych 
     // 2) od razu implementuje intrefejs inotifyPropertyChanged
     // 3) mamy mozliowosc uproszczenia deklaracji pól i właściwości poprzez uzycie ObservableProperty ale uwaga - ono wymaga tego aby klasa była partial 
+    // 4) ma zaimplementowana obsluge zdarzen [RelayCommand] 
     public partial class MainViewModelV2 : ObservableObject, IMainViewModel
     {
         private string _cityName = "warszawa";
@@ -82,16 +84,18 @@ namespace P04WeatherForecastWPF.Client.ViewModels
  
         public string CurrentTemperature => Weather?.Temperature.Metric.Value.ToString();
 
-        public ICommand LoadCitiesCommand { get; }
+        //public ICommand LoadCitiesCommand { get; }
 
         public MainViewModelV2(IAccuWeatherService accuWeatherService)
         {
-            LoadCitiesCommand = new RelayCommand(x => loadCities());
+          //  LoadCitiesCommand = new RelayCommand(x => loadCities());
             _accuWeatherService = accuWeatherService;
             Cities = new ObservableCollection<City>();
         }
 
-        private async void loadCities()
+        // atrybut relayCommand powoduje ze od razu moge zbindowac te metode z kontrolka w xaml 
+        [RelayCommand]
+        public async void LoadCities()
         {
             var cities = await _accuWeatherService.GetLocations(_cityName);
            
