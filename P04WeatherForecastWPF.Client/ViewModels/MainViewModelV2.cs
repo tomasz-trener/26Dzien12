@@ -89,7 +89,7 @@ namespace P04WeatherForecastWPF.Client.ViewModels
         public MainViewModelV2(IAccuWeatherService accuWeatherService)
         {
           //  LoadCitiesCommand = new RelayCommand(x => loadCities());
-            _accuWeatherService = accuWeatherService;
+            _accuWeatherService = accuWeatherService; 
             Cities = new ObservableCollection<City>();
         }
 
