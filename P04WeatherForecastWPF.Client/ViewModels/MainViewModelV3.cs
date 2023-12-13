@@ -22,42 +22,25 @@ namespace P04WeatherForecastWPF.Client.ViewModels
     // 2) od razu implementuje intrefejs inotifyPropertyChanged (nie musze korzystać z base viewmodel)
     // 3) mamy mozliowosc uproszczenia deklaracji pól i właściwości poprzez uzycie ObservableProperty ale uwaga - ono wymaga tego aby klasa była partial 
     // 4) ma zaimplementowana obsluge zdarzen [RelayCommand] 
-    public partial class MainViewModelV2 : ObservableObject, IMainViewModel
+    public partial class MainViewModelV3 : ObservableObject, IMainViewModel
     {
-        private string _cityName = "warszawa";
-        // private City[] _cities;
+          
         private City _selectedCity;
-        //private Weather _weather;
-
+      
         private readonly IAccuWeatherService _accuWeatherService;
-
-        public string CityName
-        {
-            get
-            {
-                return _cityName;
-            }
-            set
-            {
-                _cityName = value;
-            }
-        }
 
         public ObservableCollection<City> Cities {get; set;}
 
+        //[ObservableProperty]
+        //private Weather weather;
         [ObservableProperty]
-        private Weather weather;
+        private WeatherViewModel weatherViewModel;
 
-        // tego nie potrzebuje wykorzystuje ObservableCollection, które automatycznie powiadamia inrefejsy gdy aktualizuje listę 
-        //public City[] Cities
-        //{
-        //    get { return _cities; }
-        //    set {
-        //        _cities = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
+        [ObservableProperty]
+        private string cityName = "warszawa";
 
+        // tutaj korzystamy ze standardowego podjescia bez uzycia bibioteki mvvmtoolkit 
+        // poniewaz chcemy miec wieksza kontrole nad tym jak aktualizujemy intrefejs 
         public City SelectedCity
         { 
             get => _selectedCity; 
@@ -68,27 +51,12 @@ namespace P04WeatherForecastWPF.Client.ViewModels
                 loadWeather();
             } 
         }
+        public string CurrentTemperature => weatherViewModel?.CurrentTemperature.ToString();
 
-        // tego teraz nie potrzebuje bo jest ono automatycznie generowane przez atrybut [ObservableProperty]
-        //public Weather Weather
-        //{
-        //    get => _weather;
-        //    set
-        //    {
-        //        _weather = value;
-        //        OnPropertyChanged();
-        //        //OnPropertyChanged("CurrentTemperature");
-        //        OnPropertyChanged(nameof(CurrentTemperature));
-        //    }
-        //}
- 
-        public string CurrentTemperature => Weather?.Temperature.Metric.Value.ToString();
-
-        //public ICommand LoadCitiesCommand { get; }
-
-        public MainViewModelV2(IAccuWeatherService accuWeatherService)
+       
+        public MainViewModelV3(IAccuWeatherService accuWeatherService)
         {
-          //  LoadCitiesCommand = new RelayCommand(x => loadCities());
+         
             _accuWeatherService = accuWeatherService; 
             Cities = new ObservableCollection<City>();
         }
@@ -97,25 +65,22 @@ namespace P04WeatherForecastWPF.Client.ViewModels
         [RelayCommand]
         public async void LoadCities()
         {
-            var cities = await _accuWeatherService.GetLocations(_cityName);
+            var cities = await _accuWeatherService.GetLocations(cityName);
            
             Cities.Clear();
             foreach (var city in cities)
                 Cities.Add(city);
-
-            // alternatywnie mozmemy tak odświeżać liste miast 
-            //Cities = new ObservableCollection<City>(cities);
-            //OnPropertyChanged("Cities");
+ 
         }
 
         private async void loadWeather()
         {
             if (SelectedCity != null)
             {
-                Weather = await _accuWeatherService.GetCurentConditions(SelectedCity.Key);
+                var weather = await _accuWeatherService.GetCurentConditions(SelectedCity.Key);
+                weatherViewModel = new WeatherViewModel(weather, cityName);
                 OnPropertyChanged(nameof(CurrentTemperature));
-                // ponieważ teraz obsluga Weather jest przy pomocy [ObservableProperty]
-                // to musimy inne zależne pola odświeżać ręcznie 
+               
             }
         }
     }
