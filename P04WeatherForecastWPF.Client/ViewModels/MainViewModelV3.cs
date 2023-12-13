@@ -74,9 +74,9 @@ namespace P04WeatherForecastWPF.Client.ViewModels
             if (SelectedCity != null)
             {
                 var weather = await _accuWeatherService.GetCurentConditions(SelectedCity.Key);
-                weatherVM = new WeatherViewModel(weather, cityName);
+                WeatherVM = new WeatherViewModel(weather, cityName); // wystarczyło zmienić z małej literki na duża!! :)
                 OnPropertyChanged(nameof(CurrentTemperature));
-                OnPropertyChanged(nameof(WeatherVM)); // to do wyjasnienia 
+                //OnPropertyChanged(nameof(WeatherVM)); // to do wyjasnienia 
             }
         }
     }
