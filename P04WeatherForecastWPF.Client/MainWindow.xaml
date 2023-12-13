@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:P04WeatherForecastWPF.Client"
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="300">
-
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="precToDispConv"></BooleanToVisibilityConverter>
+    </Window.Resources>       
     <DockPanel>
         <StackPanel Width="150" DockPanel.Dock="Left">
             <Label Content="City:"></Label>
@@ -18,8 +20,10 @@
             <Label HorizontalAlignment="Center" Content="Temperature for City:"></Label>
             <Label x:Name="lblCityName" HorizontalAlignment="Center" Content="{Binding SelectedCity.LocalizedName}"></Label>
             <Label HorizontalAlignment="Center" Content="is:"></Label>
-            <Label x:Name="lblTemperatureValue" HorizontalAlignment="Center" Content="{Binding CurrentTemperature}"></Label>
-
+            
+            <!--<Label x:Name="lblTemperatureValue" HorizontalAlignment="Center" Content="{Binding CurrentTemperature}"></Label>-->
+            <Label x:Name="lblTemperatureValue" HorizontalAlignment="Center" Content="{Binding WeatherVM.CurrentTemperature}"></Label>
+            <Image Source="/Images/raining.jpg" Visibility="{Binding WeatherVM.HasPrecipitation, Converter={StaticResource precToDispConv}}" Height="70" ></Image>
         </StackPanel>
     </DockPanel>
 </Window>

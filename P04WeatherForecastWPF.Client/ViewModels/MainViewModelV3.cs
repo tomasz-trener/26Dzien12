@@ -34,7 +34,7 @@ namespace P04WeatherForecastWPF.Client.ViewModels
         //[ObservableProperty]
         //private Weather weather;
         [ObservableProperty]
-        private WeatherViewModel weatherViewModel;
+        private WeatherViewModel weatherVM;
 
         [ObservableProperty]
         private string cityName = "warszawa";
@@ -51,7 +51,7 @@ namespace P04WeatherForecastWPF.Client.ViewModels
                 loadWeather();
             } 
         }
-        public string CurrentTemperature => weatherViewModel?.CurrentTemperature.ToString();
+        public string CurrentTemperature => weatherVM?.CurrentTemperature.ToString();
 
        
         public MainViewModelV3(IAccuWeatherService accuWeatherService)
@@ -78,9 +78,9 @@ namespace P04WeatherForecastWPF.Client.ViewModels
             if (SelectedCity != null)
             {
                 var weather = await _accuWeatherService.GetCurentConditions(SelectedCity.Key);
-                weatherViewModel = new WeatherViewModel(weather, cityName);
+                weatherVM = new WeatherViewModel(weather, cityName);
                 OnPropertyChanged(nameof(CurrentTemperature));
-               
+                OnPropertyChanged(nameof(WeatherVM)); // to do wyjasnienia 
             }
         }
     }

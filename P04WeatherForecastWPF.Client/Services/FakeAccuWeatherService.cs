@@ -19,7 +19,8 @@ namespace P04WeatherForecastWPF.Client.Services
                     {
                         Value = 20
                     }
-                }
+                }, 
+                HasPrecipitation = true
             };
 
             return data;

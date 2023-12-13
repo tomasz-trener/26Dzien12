@@ -13,9 +13,11 @@ namespace P04WeatherForecastWPF.Client.ViewModels
         {
             CurrentTemperature = weather.Temperature.Metric.Value;
             CityName = cityName;
+            HasPrecipitation = weather.HasPrecipitation;
         }
 
         public double CurrentTemperature { get; set; }
         public string CityName { get; set; }
+        public bool HasPrecipitation { get; set; }
     }
 }
