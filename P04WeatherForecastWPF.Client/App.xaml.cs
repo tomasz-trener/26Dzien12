@@ -24,7 +24,7 @@ namespace P04WeatherForecastWPF.Client
 
         private void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IAccuWeatherService, AccuWeatherService>(); // bo wystraczy nam tylko 1 serwis na cala aplikacje 
+            services.AddSingleton<IAccuWeatherService, FakeAccuWeatherService>(); // bo wystraczy nam tylko 1 serwis na cala aplikacje 
             services.AddSingleton<IMainViewModel,MainViewModel>();
             services.AddTransient<MainWindow>(); // twórz nową isntacje zawsze gdy uzywasz danej klasy 
         }
