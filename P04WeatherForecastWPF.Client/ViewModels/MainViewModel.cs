@@ -10,6 +10,16 @@ namespace P04WeatherForecastWPF.Client.ViewModels
     {
         private string cityName = "warszawa"; 
 
-        public string CityName { get {  return cityName; } set {  cityName = value; } }
+        public string CityName 
+        { 
+            get 
+            {  
+                return cityName; 
+            }
+        set 
+            {  
+                cityName = value;
+            } 
+        }
     }
 }
