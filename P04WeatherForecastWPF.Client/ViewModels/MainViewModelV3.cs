@@ -17,11 +17,7 @@ using System.Windows.Input;
 namespace P04WeatherForecastWPF.Client.ViewModels
 {
 
-    // ObservableObject - z biblioteki CommunityToolkit
-    // 1) dodaje obsluge kolekcji obserowowalnych (ObservableCollection)
-    // 2) od razu implementuje intrefejs inotifyPropertyChanged (nie musze korzystać z base viewmodel)
-    // 3) mamy mozliowosc uproszczenia deklaracji pól i właściwości poprzez uzycie ObservableProperty ale uwaga - ono wymaga tego aby klasa była partial 
-    // 4) ma zaimplementowana obsluge zdarzen [RelayCommand] 
+    // dodalismy WeatherViewModel ktory bindujemy z widokiem 
     public partial class MainViewModelV3 : ObservableObject, IMainViewModel
     {
           

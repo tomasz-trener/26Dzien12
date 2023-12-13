@@ -1,5 +1,7 @@
 
-0) zakladamy, ze mamy sam widok 
+
+
+0) Wdrozenie architektury MVVM  zakladamy, ze mamy sam widok 
 1) Stworzylismy MainViewModel 
 2) tworzymy prywatne pola z publicznymi wlasciwosciami, ktore wiazemy z widokiem 
  - powiawzanie calego viewmodel u widokiem robimy w MainWindow.cs poprzez DataContex 
