@@ -20,12 +20,11 @@ namespace P04WeatherForecastWPF.Client.ViewModels
     // dodalismy WeatherViewModel ktory bindujemy z widokiem 
     public partial class MainViewModelV3 : ObservableObject, IMainViewModel
     {
-          
-        private City _selectedCity;
       
         private readonly IAccuWeatherService _accuWeatherService;
 
-        public ObservableCollection<City> Cities {get; set;}
+        [ObservableProperty]
+        private ObservableCollection<City> cities;
 
         //[ObservableProperty]
         //private Weather weather;
@@ -35,21 +34,15 @@ namespace P04WeatherForecastWPF.Client.ViewModels
         [ObservableProperty]
         private string cityName = "warszawa";
 
-        // tutaj korzystamy ze standardowego podjescia bez uzycia bibioteki mvvmtoolkit 
-        // poniewaz chcemy miec wieksza kontrole nad tym jak aktualizujemy intrefejs 
-        public City SelectedCity
-        { 
-            get => _selectedCity; 
-            set
-            {
-                _selectedCity = value;
-                OnPropertyChanged();
-                loadWeather();
-            } 
-        }
-        public string CurrentTemperature => weatherVM?.CurrentTemperature.ToString();
+        [ObservableProperty]
+        private City selectedCity;
 
-       
+        partial void OnSelectedCityChanged(City value) // dodatkowy "set" dla SelectedCity, który wywołuje się po zmianie wartości
+        {
+            // Aktualizuj inne powiązane właściwości
+            loadWeather();
+        }
+
         public MainViewModelV3(IAccuWeatherService accuWeatherService)
         {
          
@@ -62,10 +55,11 @@ namespace P04WeatherForecastWPF.Client.ViewModels
         public async void LoadCities()
         {
             var cities = await _accuWeatherService.GetLocations(cityName);
-           
-            Cities.Clear();
-            foreach (var city in cities)
-                Cities.Add(city);
+            Cities = new ObservableCollection<City>(cities);
+
+            //Cities.Clear();
+            //foreach (var city in cities)
+            //    Cities.Add(city); // ta metoda aktualizuje liste i powiadamia interfejsy
  
         }
 
@@ -75,9 +69,12 @@ namespace P04WeatherForecastWPF.Client.ViewModels
             {
                 var weather = await _accuWeatherService.GetCurentConditions(SelectedCity.Key);
                 WeatherVM = new WeatherViewModel(weather, cityName); // wystarczyło zmienić z małej literki na duża!! :)
-                OnPropertyChanged(nameof(CurrentTemperature));
-                //OnPropertyChanged(nameof(WeatherVM)); // to do wyjasnienia 
+               
+                //OnPropertyChanged(nameof(CurrentTemperature));
             }
         }
+
+
+      
     }
 }
