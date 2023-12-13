@@ -18,3 +18,6 @@
  6) rozdzielenie MainViewModel od AccuWeatherService robimy to poprzez zastoswanie intrefejsów 
 
  7) konfigurujemy w app.xaml.cs serwisy 
+
+ Zadanie dodatkowe 
+ Przecwiczyc : stworzenie formularza "favorite Cities" - dane w pliku  szkolenia@tomaszles.pl
