@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace P04WeatherForecastWPF.Client.ViewModels
 {
-    internal class MainViewModel : BaseViewModel
+    public class MainViewModel : BaseViewModel, IMainViewModel
     {
         private string _cityName = "warszawa";
         private City[] _cities;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace P04WeatherForecastWPF.Client.Services
 {
-    internal interface IAccuWeatherService
+    public interface IAccuWeatherService
     {
         Task<City[]> GetLocations(string locationName);
         Task<Weather> GetCurentConditions(string cityKey);

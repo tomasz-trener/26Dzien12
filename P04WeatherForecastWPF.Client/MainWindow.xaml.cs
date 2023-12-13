@@ -20,12 +20,12 @@ namespace P04WeatherForecastWPF.Client
     public partial class MainWindow : Window
     {
         
-        public MainWindow()
+        public MainWindow(IMainViewModel viewModel)
         {
             InitializeComponent();
 
-            MainViewModel mainWindow = new MainViewModel();
-            DataContext = mainWindow;
+           // MainViewModel mainWindow = new MainViewModel();
+            DataContext = viewModel;
          
         }
        

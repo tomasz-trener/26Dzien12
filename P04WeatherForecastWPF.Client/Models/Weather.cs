@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace P04WeatherForecastWPF.Client.Models
 {
-    internal class Weather
+    public class Weather
     {
         public DateTime LocalObservationDateTime { get; set; }
         public int EpochTime { get; set; }

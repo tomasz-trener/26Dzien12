@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using P04WeatherForecastWPF.Client.Services;
+using P04WeatherForecastWPF.Client.ViewModels;
 using System.Configuration;
 using System.Data;
 using System.Windows;
@@ -22,13 +24,16 @@ namespace P04WeatherForecastWPF.Client
 
         private void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddSingleton<IAccuWeatherService, AccuWeatherService>(); // bo wystraczy nam tylko 1 serwis na cala aplikacje 
+            services.AddSingleton<IMainViewModel,MainViewModel>();
+            services.AddTransient<MainWindow>(); // twórz nową isntacje zawsze gdy uzywasz danej klasy 
         }
 
 
         private void OnStartup(object sender, StartupEventArgs e)
         {
-
+            var mainWindow = _serviceProvider.GetService<MainWindow>();
+            mainWindow.Show();
         }
 
     }

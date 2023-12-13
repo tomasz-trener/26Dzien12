@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace P04WeatherForecastWPF.Client.ViewModels
 {
-    internal class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
