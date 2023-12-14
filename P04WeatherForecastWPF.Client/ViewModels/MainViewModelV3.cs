@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 using P04WeatherForecastWPF.Client.Commands;
 using P04WeatherForecastWPF.Client.Models;
 using P04WeatherForecastWPF.Client.Services;
@@ -22,6 +23,7 @@ namespace P04WeatherForecastWPF.Client.ViewModels
     {
       
         private readonly IAccuWeatherService _accuWeatherService;
+        private readonly IServiceProvider _serviceProvider;
 
         [ObservableProperty]
         private ObservableCollection<City> cities;
@@ -43,10 +45,11 @@ namespace P04WeatherForecastWPF.Client.ViewModels
             loadWeather();
         }
 
-        public MainViewModelV3(IAccuWeatherService accuWeatherService)
+        public MainViewModelV3(IAccuWeatherService accuWeatherService, IServiceProvider serviceProvider)
         {
          
-            _accuWeatherService = accuWeatherService; 
+            _accuWeatherService = accuWeatherService;
+            _serviceProvider = serviceProvider;
             Cities = new ObservableCollection<City>();
         }
 
@@ -74,7 +77,26 @@ namespace P04WeatherForecastWPF.Client.ViewModels
             }
         }
 
+        [RelayCommand]
+        private void OpenWindow()
+        {
+            string parametrDoPrzekazania = "Twój parametr";
 
-      
+            // Pobranie instancji viewmodelu z DI
+            var secondWindowViewModel = _serviceProvider.GetService<SecondWindowViewModel>();
+
+            // przekazanie dowolngo parametru 
+            secondWindowViewModel.Parametr = parametrDoPrzekazania;
+            // Pobranie instancji widoku z DI
+            var window = _serviceProvider.GetService<SecondWindow>();
+
+            // Ustawienie DataContext nowego okna
+            window.DataContext = secondWindowViewModel;
+
+            window.Show();
+        }
+
+
+
     }
 }
